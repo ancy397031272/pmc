@@ -1,6 +1,11 @@
 cmake_minimum_required(VERSION 3.10)
 project(pmc VERSION 1.0.0)
 
+# Global Security options (including 3rd party code)
+# Add -fPIC for library and -fPIE for executable to compiler and linker. Does not add -pie !
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+
+
 set(PMC_SOURCE_FILES
         ${CMAKE_CURRENT_SOURCE_DIR}/pmc_heu.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/pmc_maxclique.cpp
@@ -12,7 +17,7 @@ set(PMC_SOURCE_FILES
         ${CMAKE_CURRENT_SOURCE_DIR}/pmc_clique_utils.cpp
         )
 
-add_library(pmc SHARED ${PMC_SOURCE_FILES})
+add_library(pmc STATIC ${PMC_SOURCE_FILES})
 
 target_include_directories(pmc PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/include>
